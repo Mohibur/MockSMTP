@@ -1,4 +1,4 @@
-package com.simple.mind.fakesmtpwebserver.server;
+package com.simple.mind.mocksmtpserver.smtpserver;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

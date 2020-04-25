@@ -1,4 +1,4 @@
-package com.simple.mind.MockSmtpServer.resource;
+package com.simple.mind.mocksmtpserver.resource;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.simple.mind.fakesmtpwebserver.server;
+package com.simple.mind.mocksmtpserver.smtpserver;
 
 import java.util.ArrayList;
 import java.util.List;

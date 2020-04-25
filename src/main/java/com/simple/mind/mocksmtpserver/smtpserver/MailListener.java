@@ -1,4 +1,4 @@
-package com.simple.mind.fakesmtpwebserver.server;
+package com.simple.mind.mocksmtpserver.smtpserver;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.subethamail.smtp.helper.SimpleMessageListener;
 
-import com.simple.mind.fakesmtpwebserver.storage.MailStorage;
+import com.simple.mind.mocksmtpserver.storage.MailStorage;
 
 public final class MailListener implements SimpleMessageListener {
 

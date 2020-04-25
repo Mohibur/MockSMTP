@@ -1,6 +1,7 @@
 <!doctype>
 <html>
 <head>
+ <meta charset="UTF-8" />
 <title>Display Page</title>
 <script src="https://code.jquery.com/jquery-3.5.0.min.js"
 	integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
@@ -24,10 +25,11 @@
 			</tr>
 		</table>
 	</div>
-	<table id="mail_details">
+	<table id="mail_details" style="width:800px;">
 		<tr>
 			<th>From</th>
 			<th>To</th>
+			<th>Subject</th>
 			<th>Message</th>
 			<th>Has Attac.</th>
 			<th>Status</th>
@@ -39,6 +41,23 @@ $("#port").on("keypress", function (e) {
 	if(e.keyCode < 48 || e.keyCode > 57)
 	e.preventDefault();
 })
+function setButtonValue(status) {
+	$("#server_ss").html(status==true?"Stop Mail Server":"Start Mail Server");
+}
+
+function updaetStatus() {
+	$.ajax({
+		url: "/status",
+		data: {},
+		success: function (jsonData) {
+			console.log(jsonData);
+			setButtonValue(jsonData.status);
+		},
+		error: function(errr) {
+			z=errr;
+		} 
+	});
+}
 $("#server_ss").on("click", function (e) {
 	var btnObj = this;
 	$.ajax({
@@ -48,19 +67,10 @@ $("#server_ss").on("click", function (e) {
 			port: $("#port").val()
 		},
 		success: function (jsonData) {
-			console.log(jsonData)
-			/*
-				success: boolean;
-				status: boolean
-			*/
 			if(jsonData.success == false) {
 				return;
 			}
-			if(jsonData.status == true) {
-				btnObj.innerText = "Stop Mail Server";
-			} else {
-				btnObj.innerText = "Start Mail Server";
-			}
+			setButtonValue(jsonData.status);
 		},
 		error: function(errr) {
 		} 
@@ -71,16 +81,37 @@ loadList = function () {
 	$.ajax({
 		url: "/messages",
 		data: {
-			last_index: 0
 		},
 		success: function (jsonData) {
-			console.log(jsonData);
+			var tab = document.getElementById("mail_details");
+			for(var index in jsonData.data) {
+				var row = tab.insertRow();
+				//<th>From</th>
+				//<th>To</th>
+				//<th>Sub</th>
+				//<th>Message</th>
+				//<th>Has Attac.</th>
+				//<th>Status</th>
+				var cellFrom = row.insertCell();
+				var cellTo = row.insertCell();
+				var cellSub = row.insertCell();
+				var cellMessage = row.insertCell();
+				var cellHasAttach = row.insertCell();
+				var cellStatus = row.insertCell();
+				$(cellFrom).html(jsonData.data[index].from);
+				$(cellTo).html(jsonData.data[index].to);
+				$(cellSub).html(jsonData.data[index].subject);
+				$(cellMessage).html(jsonData.data[index].mailBody);
+				$(cellHasAttach).html(jsonData.data[index].attachement);
+				$(cellStatus).html(jsonData.data[index].readByTester);
+			}
 		},
 		error: function (err) {
 			rerr = err;
 		}
 	});
 }
+updaetStatus();
 </script>
 
 </body>

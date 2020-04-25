@@ -1,4 +1,4 @@
-package com.simple.mind.fakesmtpwebserver.storage;
+package com.simple.mind.mocksmtpserver.storage;
 
 import java.util.HashMap;
 
