@@ -1,0 +1,87 @@
+<!doctype>
+<html>
+<head>
+<title>Display Page</title>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"
+	integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div style="text-align: center; width: 100%">
+		<table
+			style="width: 800px; cellpadding: 0; cellspacing: 0; border: 0px; border-spacing: 0px; border-collapse: separate;">
+			<tr style="background: #cfcfcf">
+				<th style='text-align: left; padding: 10px;' width="20%">Host:</th>
+				<th style='text-align: left; padding: 10px;' width="20%"><input
+					id="hostname" value="localhost"></th>
+				<th style='text-align: left; padding: 10px;'>Port:</th>
+				<th style='text-align: left; padding: 10px;'><input id="port"
+					value="2525" size=1 maxlength=5 onkeypress=""
+					style="text-align: right;"></th>
+				<th style='text-align: center; padding: 10px;'>
+					<button id="server_ss">sample text</button>
+				</th>
+			</tr>
+		</table>
+	</div>
+	<table id="mail_details">
+		<tr>
+			<th>From</th>
+			<th>To</th>
+			<th>Message</th>
+			<th>Has Attac.</th>
+			<th>Status</th>
+		</tr>
+	</table>
+	<script>
+
+$("#port").on("keypress", function (e) {
+	if(e.keyCode < 48 || e.keyCode > 57)
+	e.preventDefault();
+})
+$("#server_ss").on("click", function (e) {
+	var btnObj = this;
+	$.ajax({
+		url: "toggol",
+		data: {
+			hostname: $("#hostname").val(),
+			port: $("#port").val()
+		},
+		success: function (jsonData) {
+			console.log(jsonData)
+			/*
+				success: boolean;
+				status: boolean
+			*/
+			if(jsonData.success == false) {
+				return;
+			}
+			if(jsonData.status == true) {
+				btnObj.innerText = "Stop Mail Server";
+			} else {
+				btnObj.innerText = "Start Mail Server";
+			}
+		},
+		error: function(errr) {
+		} 
+	});
+});
+
+loadList = function () {
+	$.ajax({
+		url: "/messages",
+		data: {
+			last_index: 0
+		},
+		success: function (jsonData) {
+			console.log(jsonData);
+		},
+		error: function (err) {
+			rerr = err;
+		}
+	});
+}
+</script>
+
+</body>
+</html>
