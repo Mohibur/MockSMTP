@@ -1,24 +1,17 @@
 package com.simple.mind.mocksmtpserver.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import com.google.common.base.Strings;
 import com.simple.mind.mocksmtpserver.resource.QueryParser;
-import com.simple.mind.mocksmtpserver.storage.MailDetails;
 import com.simple.mind.mocksmtpserver.storage.MailStorage;
 import com.sun.net.httpserver.HttpExchange;
 
 public class MailListController {
 
-	public static class Ret {
-		boolean success;
-		public MailDetails data;
-	}
-
 	public static class RetData {
 		boolean success;
-		public HashMap<Integer, MailDetails> data;
+		public Object data;
 	}
 
 	public static void getAllMails(HttpExchange exchange) throws IOException {
@@ -48,7 +41,7 @@ public class MailListController {
 		QueryParser qp = new QueryParser(exchange);
 		Integer index = qp.getInt("index");
 		String msgId = qp.getString("messageId");
-		Ret towrite = new Ret();
+		RetData towrite = new RetData();
 
 		if (index == null || Strings.isNullOrEmpty(msgId) == true) {
 			towrite.success = false;

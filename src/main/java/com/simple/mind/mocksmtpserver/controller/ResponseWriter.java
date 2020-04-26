@@ -3,7 +3,7 @@ package com.simple.mind.mocksmtpserver.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 
 public class ResponseWriter {
@@ -18,7 +18,8 @@ public class ResponseWriter {
 		exchange.getResponseHeaders().set("content-type", "application/json");
 		String towrite = "";
 		try {
-			towrite = new ObjectMapper().writeValueAsString(obj);
+			//towrite = new ObjectMapper().writeValueAsString(obj);
+			towrite = new Gson().toJson(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
