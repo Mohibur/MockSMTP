@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class MailDetails {
 	@Setter(AccessLevel.NONE)
 	private Integer index;
 
-	@JsonIgnore
+	@Expose (serialize = false, deserialize = false) 
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private HashMap<String, String> attachments = new HashMap<String, String>();
