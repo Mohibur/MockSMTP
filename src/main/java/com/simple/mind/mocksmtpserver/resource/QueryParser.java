@@ -17,6 +17,7 @@ public class QueryParser {
 	}
 
 	private void parseQuery(String query) {
+		if(query == null) return;
 		String[] strs = query.split("&");
 		for (String s : strs) {
 			String var, value;
