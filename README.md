@@ -56,7 +56,7 @@ curl "http://localhost:8500/delete"
 # response
 {"success":false}
 
-curl "http://localhost:8500/delete?index=2&messageId=<theidcreatedbymailsendingapp>"
+ curl "http://localhost:8500/delete?index=0&messageId=%3C992136656.0.1587882808639.JavaMail.johny@johny%3E"
 {"success":true}
 
 
