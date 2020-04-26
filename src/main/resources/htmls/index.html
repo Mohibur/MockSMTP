@@ -6,11 +6,82 @@
 <script src="https://code.jquery.com/jquery-3.5.0.min.js"
 	integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
 	crossorigin="anonymous"></script>
+<style>
+.tdtopleft {
+	border:1px solid gray;
+}
+.tdtopothers {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	border-right:1px solid gray;
+}
+.tbodyleft {
+	border-left:1px solid gray;
+	border-bottom:1px solid gray;
+	border-right:1px solid gray;
+	font-size: x-small;
+	height: 30px;
+}
+
+.tbodyother {
+	border-bottom:1px solid gray;
+	border-right:1px solid gray;
+	font-size: x-small;
+	height: 30px;
+}
+.discardbutton div, .dicardbutton_done div {
+	height: 30px;
+	width: 30px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AQaAwEp0sr1ewAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABJ0lEQVRIx+2WsUrEQBCGvzGHjYjaWPsQ+hC+gQ/gG8juAwiHkOAb2FhYHIjaWQgKCtpYnmApKCiCnEfARpOxMBYKd7fZsbDYHxaSzDAf/zLZWUhKSkpKCpSMC2pRTANZYK0Pce49FDw1Ib4DvAWu7TaOJ4HLFrXK6K3WPF9DZAuomk+LwGxgrVfgpXnOUN0Q7w9GJXd+vS8AS5H9Mt+sb82NS/4JFjkCloEVY9NeAMfBYHHuUfP8DpFVI/hBvH8Kd/ylS2DThFU9ad/Vw+GZ+XDw/ro1WLrdGtXS4PY5/j8WOYy3K714sOqtwfG9BbwfDa6qXdOQ0KLQqJ12TqxndT+Ce/UXQ+I0AnxuB6v2IxrrJjS1MzJS1z2ybL2ZtSGaYTDY+/dXn08VAFZ95dSdAAAAAABJRU5ErkJggg==');
+	background-repeat: no-repeat;
+	cursor: pointer;
+	margin: 0 auto;
+}
+
+.dicardbutton_done div {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAQAAACROWYpAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkBBoFHikbHYdXAAAAHWlUWHRDb21tZW50AAAAAABDcmVhdGVkIHdpdGggR0lNUGQuZQcAAADqSURBVDjLY2AYBaNg0AJGVO4SNgZmLKr+xPzGppkJjT+H4RsW2IvdZnTNn7Gq+ozX2YsjGNsZ/jIwMIgx8GJR9YHhLQMDA/P/4th1yMIsUFqQQQFPyAgwCDAwMDAw8KMKQzUzbmAwYTAlELiHGbZj1RzzfPEDRk8Cmp/EvsCqmYGB4RhDE369/3fjjOfpTLx/8WuOYcQZVZn//n/Ga+8rvPHMuB5vUlyJV/P/G3htfoxf8xp8mv8tJJAxlvwnJbjQ0/YVnHqPE84Y+3BqPkRQ83+cNv+/ik2UBSVQVjKnMHzDoor701KqF0MAKWo/DDHc2LkAAAAASUVORK5CYII=');
+}
+
+
+.discardbutton div:hover {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AQaAwEbGh2k+wAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAACWElEQVRIx82VPWgUQRiGn+/uYmGKNBZiEEnSiKmECwgWKbRSsTIgtp+NVjZzB5pYCOcltyCIaCFMIfhDRBEEtRCixKAgEREi+IMkKlGwCVGxCGTHIntyxN11b5YQX1iYnb9n3m9mvoH1lLW2w2ecC4I+X6ZE4CHgIlAFNgIbgLfAlKp+j4U2GjVETgJ7xJiJaCFlMWY6MziCnwW+Ai9VdcpauxnYBRwCrqvq/VVu54Bt0e9BYAF4AtwTYw78C1xoKQ8DJWDeWnsK+AksAgFQjhk73FK+G0EB9rsgeJwZrKohMA8sqWoNOAL0quor4NNfoTLmKs7tS5h30AXB86yOUdWbwOGofFlVbdTUGbtPlcoDnBtMmHvABcFMJnCkMKZuylq7OwE+iXMDCfPvcEHwLvVwtRyy7cDeaAHNzwFbVfV04tVqNPoRiXPogI9iTE8qOOWuHwe6VLUeCx4bE0T6EHmfAP8C9IoxS0mhjpWqXgLOWWuLsaGrVh3wgTDsSYhsNzDStuM2spkAW4C56Ho2dV6MOZF2uHJJjGmGtRv41dLU77XHXs7DsItCYRboilgvxJjymoL/LGB0tJNicRbYFFXdFmOG1hwM4Or1DkqlG8BOMaaP9ZTEJIIRRI7lnPeCGFNP61CKqXsKnMkXW/ewnWdxRYuLj3KHsVKZbhsstVqIcz9yuP2WpVt8AhG5429Xxv3Bzr3J4fhzHvAtb/Dy8hWv69SS8pxnrhZ/xyua8eA+y9oxDTzhAZ7MD3ZuxuNgvc7atZTYEobjFItHV72paepkYeEa/7t+A2PrydkbswHYAAAAAElFTkSuQmCC');
+}
+.discardbutton div:active {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AQaBA80KgCiqQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAACVElEQVRIx82VPWgUQRTHf7N3sfCKI2AhBpHkGjGVcAHBIoVWKlYGxHKw0cpiLxf0YiHEQG4QJGgh+EDwg4giCGohRImHgkREOMEPJFGJgo34gUXI3VhkD4+4u+7NEuIfDmZn35vf/N/NvIW1lNa6yynR9wuuTBWAh4BzQBlYD6wDXgM1EfkemlkqjWHtcWAXxkwHGylizGxicAA/DXwGnotITWu9EdgBHACuisjdFW7ngS3B037gK/AIuIMx+/4F9trGFSALLGitTwA/gW9AFSiG5FbaxrcDKMBefP9hYrCINIEFYFFExoBDQJ+IvAA+/JVpzGWU2hOx7iC+/zSpY0TkOnAwGF8QkYvBq1xodrV6D6UGI9YewPfricCBmiFzNa31zgj4DEoNRKy/Dd9/E3u42g7ZVmB3sIHWzwKbReRkZO1KpX6sDXNogfcY0xsLjrnrR4G8iIyHBgwPK6wtYO3bCPgnoA9jFqNKHSoROQ+c0VpnQgMmJizwDs/rjahsDzDaseMOupkCNgHzwfVs6SzGHIs7XOlkTKusPcCvtjf9Tv+xk3PPy9NszgH5gPUMY4qrC26pXM7RaMwBG4KZmxgztPpggJGRLpaWrgHbMabAWkqFNIJRrD2Sct1JjBmPC8iGzD0GTqWzo+538llcVj7/IHUdq9XZzsGVShOlfqRw+yVJWHgDsfaWM9jaKXewUq9SOP6YBnzDGZzJXHK7Tn9annXs1crd8bLqDtgnSQPjwNMO4Jn0YKXqDgfrZdLQbPSWvCkajcMrvqlxytHdfYX/Xb8Blv+wpmp6ZisAAAAASUVORK5CYII=');
+}
+
+.tickbutton div  {
+	height: 30px;
+	width: 30px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AQaBDMegkgSgAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAADTElEQVRIx+2WUWhTVxjHf+f2pkmKpKWRlmSmJDQ6uTa2UJVAIYJP2ejDNhZ96iZFKiorrC9lmw8DtzGkexOGpWzibI27YF90D44FO5hz0rUwmLPBlqZzRBNiV1m7Llnut4fZ0Tm1qTN52b77cu89/z+/e87/49wD/4UKSah95V6rFDQq0W4XrpaVZ70S0L2yN1JDTa8T53MVm/E+2ecLEBixYftaR89UBByVqKuZ5ov11NctsjhkKrNYEXAbbZ8bGKHb3E6MqJFvV4+VDdwrvWYLLTvvca+QJv3Gg+NlAR+QA6+10vqiE6dKkrwcV/Hvyw7ukq4d29j2TiONVRkyVorUqw/TPXXwZjafDxJ0WVjc4MbIqBpNlx3cJ31fGhg+DY0Uqd+yZI8+SvvUwN3S3bed7R127OTJM8PM+QKFdFnBMYk9u5Wt/W7cmkKRJr2YJTtkKjNfNnBMYlU+fO8109ygoZEnT4rUxBl1JvE4378GO3F2hAi95MABwF3u/j7H3Ptr+XSAsISdgvhduHIBAvODarCwji6Ob2QjCkWBAtNMT51VZz9by6cBXFVXf3XgaGmi6Qsbto/3y/7nEdRa5kNy6ISB4dHQEIR55plhpqeUD/7rtzimxkyPeJaCBEdrqX3Zi/e7lKQGhtXwp4/Its3A6K6mGoWiSJHrXP/mnDp3pRTw3zKOq/jFKaaiglS1075zD3uG+6V/MiaxZx40+vF/4MXrXJltjhx3uHOk1Ij+cRA4pU4ldNGP7GLXCQ8emxt3mwfPzVqpfX2BhY9MZea7pKvTjz9sxw6AhUWS5Fc5cj+UCn5oVw+pocFxxo9nyRZ1dIIEHREiH25i0+mYxJq8eA/78NWo+22QJVvMkBm8oC4slQp+bAMdlIPvRoi8WUcdAMssM8fcj27cjfXUV69kO8nkVILEjjE19ssTL/XqOqlOvqWJZu1m99ENbMCBgy1s8a3WLLBQnGX2k/VAAarWEoy/PX7ZizfQQEOrDRtq1SJZWEwz/fOAGuhc78ajlRCGJEn2TDBxaYml+6/+vJZZJkny+JPseKpUYad01hgYl8KEO+zYsbC4xrXZY+pYoKxggB7psenop334XsiQuXKLW6+YyvyJ/6uE+gMtoRzr7S2f3gAAAABJRU5ErkJggg==');
+	background-repeat: no-repeat;
+	cursor: pointer;
+	margin: 0 auto;
+}
+.tickbutton div:hover {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AQaBDQG3mUcEQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAADL0lEQVRIx+2VXUhTYRjHf2dz5gfZx3A2UmcKR4mi7IvCiuiqDy/Ki8H6pAQVoi66SPpACCok8iKIKCwEo7IT1IWVUDRiYKvIyqXrS3E4shptmhXbOts5XZwM+zBntd3UAwfO877P8/7e5/2/PC/8E+ZyzR361SUM2tKylcHBGUNuUkKgFy4s5fXrHQSDKxNXcVNTDj0955BlJ5GILzHglpYMuruvEghMJD39FFZrNDHgR49u4HbPZMoUO+vXtw2fih/46NGLdHTMJyNDxmze/f10fMD19dtpb19LMCggirew2TrjD25snEdn5wHevNFjMilYLJt/Fvb3wS9eXKKrKwOdDoqKzlFW9ir+4Lo6B253DooCFkuYzMx9I4X+PfDp0ztxuUoIhyE5GfLzL2EwvIovWJIKefq0Gr9fh6qC2fyRzMxTWK2f4geWJD1e7yG6u00oilatxfKAjRvtv0r7c3AwWMLjx2WEQpo/eXKE3Nza0dK0R8LpTEUQ8hgc9NPT009lpTyGW9zE27egqmAwQEHBM9atuzZamlbxokVBQqEZ9PbeRJYbaGhYhaoKo0KPHz+G221GUUAQYNIkyM+viGW/3y5+/vxq2tsv8+6dQna2C4vlCBs2SCNoOxuH4zYeTyrRKOj1sGTJXaqrF8YC/lZjm+0qhYUrEAQ9bW3zsdvPUlv7EEma+kOmx1NHX1/q12qNRsjK2harQj9eri1b7BQXb8NolPH5knA6Z9Pa2kV9fRWSlPylLZbi8SwkHP6yig5EsRWj8UmsYP1PR5ub26isHEd/fwnv3+sIBJLw+UpJTxcpL79Hb+9+OjqmoyhavMkUpaioBpvtfqzgX1+gEycO4nDsYWBA81NSIDfXi9+fRSCQjKpq2hYXP2P58nksW/bh9496uFVV7WXx4gOMH6/pGArB8+c5+P0aFGDChCh5eWfGAh35qIfblSu36Oubhs83C1nmK3BI24KCAXbtKh1r3xm9cwmCiihWMGfOddLStDFV1b6UFBDFw7/T8ISYI5ub03C7r3PnjvYC6XSwYIGHmppp8QUDnDxpIBJpxOtdg8l0m+zsTVitL/lvMdhnAfMjBsIH+hUAAAAASUVORK5CYII=');
+}
+.tickbutton div:active {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AQaBDMoTfKHGQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAADSElEQVRIx+2WX2hTVxzHP+f2pk2KpKWRlmTektCo5drYQlUCQgSf4uiDDqNPdaVIi8oK60vZ5sNAHUPqmyCWoqK2xl2wL+qDsmAF/9K1MJjaYEtTlWhC7Cpr1zUmx4fYss4/TdXkxR24cM89vx+f8/19f5xz4XMY0uOpn3tX8gb1+5uxWmvm5mpeoDt2+CgubsNi2ZI3xXLnTg2XqxeT6RaqGssLWPr9VqqqLlFWVsrUVLcwjFR+FNfVXUXXPTx9GhK9vb/9eylnYNnWZlBTs54XL5JEo9/9dz0nYLl79zfU1m7DYhGEw9dEMPhHzsGysXEda9YcpKKigFgsTSTy9dviPr3ilSsv4HZbSafhwYNe0dcXzTlYtrdfR9c1FAUikX+Ix/e/K/aTgWVzcztr126kqAhmZ2F09ALJZDSnYBkIrKa6ugObTUEIiEaniMe7hWHM5gwsA4ECNO0nqqrKUZSM2khkUJw9G3pf3scrtlg24vF8hdmcmT9//pLx8Z8XS1MBpNdrQUonVmsCl2tCdHUll9DFQZYvByEgmYSRkWFx7tzlxdIUAHH79t+YzTVUVv6KyXRSNjV9KUEsWuY9e46i63YUBaSEiQkYHW3JZr/z16Lo7zek3T6N291HScl2HI7fZSTSKXp6fnmHt3XoejOFhRm1qRTcu3dHnD9/MxvwAo9FMHiJ4WE/UhZQX7+ezZt7ZEfHkAwEvngj0+k8gsNhmVebSMCzZ/uydeiNHwFx6lRIquo+Nmw4it1uwmarw25/KEtKvmVy8oQwjFnZ2NiA0+mlqCiTlE5DOHyDROJ+tuC3drXo7u5iYOAw8XgKVQW324zPd4wVK07LQKASh2MvmlaMeN0G8XiKWKxLXLw4nS34vQ0kW1sP4fN9T2lp5sPMDIyPP8Jmq6CsrHDe26GhYUKhdaK//68PLvWCXR0//oNUlDSbNu1n2TIwm2HVKm1B0ORkirGxM0uBAhQsFvDjwMA1HA4X5eW1mEzMl3fO25GRP0VnZ8NSzx0lCy8k4XALg4NXmH5toRCZZ2YGwuHDH3LgiazP5IaGYnT9Cl5v5gZKp+Hu3TFx4IArp2AA2dJiQlVPo2lbicVu8vjxLmEYT/h/ZDFeAfRfHOukVsR2AAAAAElFTkSuQmCC');
+}
+
+.tickbutton_done div  {
+	height: 30px;
+	width: 30px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAQAAACROWYpAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkBBoFFS8RivupAAAAHWlUWHRDb21tZW50AAAAAABDcmVhdGVkIHdpdGggR0lNUGQuZQcAAAIzSURBVDjLY2CgP4gyZmBgYGAiR2t+ErcOAwMDAwvpWqvsOPLYPcmyuVpWahnLceZXZGjO55PeyifwfU77XzJ8O/Xk9v/9m2A8kmzuXa1k+vX320oybG3N3fRn3/++XQgRom2uN1FqEWJ+/+9FPBma5dbJ8P1jeLis6znJmiccUpRlYnjx830NsihRmpuLVKxZGX4zPF335zmJmivVFcr5mRgZ3nz9MKf9F0maK5nF26TFmBh+M7w417gPVY6gZnZr5SB2BgaGT39edKDLsTAwJHEyKHC/lXpf+RubZtkVAgyMDH8Yntxs2YYux8TAMO87m474Xub5TV5mjOjSnVMUJZkY/jN8YniWhmkwVHmNt+p67n+vLr3oaVqF5F8Dw2OSnMwMfxkunMy1wNQM9XPL1oceDMwapiZLp5yvlIZJSvaKcDIx/Gf4yPAuG5uXmGGM/ff1X/J5CLOKSXBnGb41v3Tkb72PSiE/KyPDP4bbR5/3H/+NRzMDw76zBux81lxMfCxCPj/UjE5JNCppMTEwMLz/+7Cu9QxemxkYGBj27tNjF7ZlZ+BgENHhCZHU5WBmZPjL8Oj2jcIzvwhqZmDYu0+XRdiOlYGFgZ+fg5mRgYHhy99bE7v3Yk8DzOgCnw6IKgrps0Cj4R/Dkw95PrgSEEYKO/X/UdqNXT8YGBgYGRgZfjE86sKd+hixCRZxKe7SsWZj+Mdw7UG6Im7NzNgEj/+2W/xc9ZfK3UNPfY98ZhiEAABJEamPbCo6twAAAABJRU5ErkJggg==');
+	background-repeat: no-repeat;
+	cursor: default;
+	margin: 0 auto;
+}
+
+
+</style>
 </head>
+
 <body>
 	<div style="text-align: center; width: 100%">
 		<table
-			style="width: 800px; cellpadding: 0; cellspacing: 0; border: 0px; border-spacing: 0px; border-collapse: separate;">
+			style="width: 800px; border: 0px; border-spacing: 0px; border-collapse: separate;">
 			<tr style="background: #cfcfcf">
 				<th style='text-align: left; padding: 10px;' width="20%">Host:</th>
 				<th style='text-align: left; padding: 10px;' width="20%"><input
@@ -25,14 +96,15 @@
 			</tr>
 		</table>
 	</div>
-	<table id="mail_details" style="width:800px;">
-		<tr>
-			<th>From</th>
-			<th>To</th>
-			<th>Subject</th>
-			<th>Message</th>
-			<th>Has Attac.</th>
-			<th>Status</th>
+	<table id="mail_details" style="width:800px; border: 0px; border-spacing: 0px; border-collapse: separate;"
+	data-current-index="1">
+		<tr style="background-color: #8d96ae">
+			<th class="tdtopleft" style="width:10%">From</th>
+			<th class="tdtopothers" style="width:10%">To</th>
+			<th class="tdtopothers" style="width:20%">Subject</th>
+			<th class="tdtopothers" style="width:30%">Message</th>
+			<th class="tdtopothers">Has Attac.</th>
+			<th class="tdtopothers" colspan=2>action</th>
 		</tr>
 	</table>
 	<script>
@@ -50,7 +122,6 @@ function updaetStatus() {
 		url: "/status",
 		data: {},
 		success: function (jsonData) {
-			console.log(jsonData);
 			setButtonValue(jsonData.status);
 		},
 		error: function(errr) {
@@ -77,40 +148,162 @@ $("#server_ss").on("click", function (e) {
 	});
 });
 
+// function return false if does not exists; return the table row if matches;
+function checkIfExists(tab, id) {
+	var toRet;
+	for(var i = 0; i < tab.rows.length; i++) {
+		if($(tab.rows[i]).attr("data-messag-id") == id) return tab.rows[i];
+	}
+	return false;
+}
+
 loadList = function () {
+	function update(row, jsonData, updateIndex) {
+		$(row).attr("data-current-index", updateIndex);
+		var cellFrom = row[0];
+		var cellTo = row[1];
+		var cellSub = row[2];
+		var cellMessage = row[3];
+		var cellHasAttach = row[4];
+		var cellTick = row[5];
+		var cellAction = row[6];
+		$(cellFrom).text(jsonData.from);
+		$(cellTo).text(jsonData.to);
+		$(cellSub).text(jsonData.subject);
+		$(cellMessage).text(jsonData.mailBody);
+		$(cellHasAttach).text(jsonData.attachement);
+		$(cellTick).html("<div class=''>&nbsp;</div>");
+		$(cellAction).html("<div class=''>&nbsp;</div>");
+	}
+
+	function insert(tab, jsonData, id, updateIndex) {
+		var row = tab.insertRow();
+		$(row).attr("data-messag-id", id);
+		$(row).attr("data-current-index", updateIndex);
+		var cellFrom = row.insertCell();
+		var cellTo = row.insertCell();
+		var cellSub = row.insertCell();
+		var cellMessage = row.insertCell();
+		var cellHasAttach = row.insertCell();
+		var cellTick = row.insertCell();
+		var cellAction = row.insertCell();
+		$(cellFrom).addClass("tbodyleft");
+		$(cellFrom).text(jsonData.from);
+		$(cellTo).addClass("tbodyother");
+		$(cellTo).text(jsonData.to);
+		$(cellSub).addClass("tbodyother");
+		$(cellSub).text(jsonData.subject);
+		$(cellMessage).addClass("tbodyother");
+		$(cellMessage).text(jsonData.mailBody);
+		$(cellHasAttach).addClass("tbodyother");
+		$(cellHasAttach).text(jsonData.attachement);
+		$(cellTick).addClass("tbodyother");
+		buildTickButton(cellTick, jsonData.readByTester);
+		$(cellAction).addClass("tbodyother");
+		buildDeleteButton(cellAction);
+	}
+
+	function buildTickButton(cellTick, status) {
+		var tickButton = document.createElement("div");
+		cellTick.appendChild(tickButton);
+		if(status) {
+			$(cellTick).removeClass('tickbutton');
+			$(cellTick).addClass('tickbutton_done');
+		} else {
+			$(cellTick).removeClass('tickbutton_done');
+			$(cellTick).addClass('tickbutton');
+
+		}
+
+		var id = $(cellTick.parentElement).attr("data-messag-id");
+		tickButton.onclick = function(thisObj, id) {
+			return function () {
+				var mid = id.split(":")[0];
+				var index = id.split(":")[1];
+				$.ajax({
+					url: "/read",
+					data: {
+						messageId: mid,
+						index: index
+					},
+					success: function (jsonData) {
+						if(jsonData.sccess==false) return;
+						if(jsonData.data.readByTester == true) {
+							$(thisObj.parentElement).removeClass("tickbutton");
+							$(thisObj.parentElement).addClass("tickbutton_done");
+						}
+					},
+					error: function(err){
+						
+					}
+				});
+			};
+		} (tickButton, id);
+	}
+	
+	function buildDeleteButton(cellAction) {
+		var discardButton = document.createElement("div");
+		$(cellAction).addClass("discardbutton");
+		cellAction.appendChild(discardButton);
+		var id = $(cellAction.parentElement).attr("data-messag-id");
+		discardButton.onclick = function(thisObj, id) {
+			return function () {
+				var mid = id.split(":")[0];
+				var index = id.split(":")[1];
+				$.ajax({
+					url: "/delete",
+					data: {
+						messageId: mid,
+						index: index
+					}
+				});
+			};
+		} (discardButton, id);
+	}
+
+	function updateTable(tab, updateIndex) {
+		for(var i = 1; i < tab.rows.length; i++) {
+			if($(tab.rows[i]).attr("data-current-index") != updateIndex) {
+				$(tab.rows[i]).css("background", "#ff8888");
+				$(tab.rows[i]).css("text-decoration", "strike-through");
+				$(tab.rows[i].cells[5]).removeClass("tickbutton");
+				$(tab.rows[i].cells[5]).addClass("tickbutton_done");
+				$(tab.rows[i].cells[6]).removeClass("dicardbutton");
+				$(tab.rows[i].cells[6]).addClass("dicardbutton_done");
+			} else if(i%2==0) {
+				$(tab.rows[i]).css("background", "#cdfeff");
+			} else {
+				$(tab.rows[i]).css("background", "#e6ffcd");
+			}
+		}
+		$(tab).attr("data-current-index", updateIndex + 1);
+	}
+	
 	$.ajax({
 		url: "/messages",
 		data: {
 		},
 		success: function (jsonData) {
 			var tab = document.getElementById("mail_details");
+			var updateIndex =parseInt($(tab).attr("data-current-index"), 10);
 			for(var index in jsonData.data) {
-				var row = tab.insertRow();
-				//<th>From</th>
-				//<th>To</th>
-				//<th>Sub</th>
-				//<th>Message</th>
-				//<th>Has Attac.</th>
-				//<th>Status</th>
-				var cellFrom = row.insertCell();
-				var cellTo = row.insertCell();
-				var cellSub = row.insertCell();
-				var cellMessage = row.insertCell();
-				var cellHasAttach = row.insertCell();
-				var cellStatus = row.insertCell();
-				$(cellFrom).html(jsonData.data[index].from);
-				$(cellTo).html(jsonData.data[index].to);
-				$(cellSub).html(jsonData.data[index].subject);
-				$(cellMessage).html(jsonData.data[index].mailBody);
-				$(cellHasAttach).html(jsonData.data[index].attachement);
-				$(cellStatus).html(jsonData.data[index].readByTester);
+				var id = jsonData.data[index].messageId + ":" + index;
+				var v = checkIfExists(tab, id);
+				if(v == false) {
+					insert(tab, jsonData.data[index], id, updateIndex);
+				} else {
+					update(v, jsonData.data[index], updateIndex);
+				}
 			}
+			updateTable(tab, updateIndex);
 		},
 		error: function (err) {
 			rerr = err;
 		}
 	});
 }
+
+window.setInterval(loadList, 2000);
 updaetStatus();
 </script>
 

@@ -26,4 +26,24 @@ public class MailStorage {
 		mailStorage.mailMap.put(index, md);
 		index++;
 	}
+
+	public static boolean DeleteMail(Integer msgIndex, String msgId) {
+		MailDetails md = mailStorage.mailMap.get(msgIndex);
+		if (md == null)
+			return false;
+		if (md.getMessageId().compareTo(msgId) != 0)
+			return false;
+		mailStorage.mailMap.remove(msgIndex);
+		return true;
+	}
+
+	public static MailDetails ReadMail(Integer msgIndex, String msgId) {
+		MailDetails md = mailStorage.mailMap.get(msgIndex);
+		if (md == null)
+			return null;
+		if (md.getMessageId().compareTo(msgId) != 0)
+			return null;
+		md.setReadByTester(true);
+		return md;
+	}
 }

@@ -75,7 +75,7 @@ public class MailDetails {
 			from = line.substring(6, line.length()).trim();
 		} else if (line.matches("^Reply-To: +$")) {
 			replyTo = line.substring(10, line.length()).trim();
-		} else if (line.matches("^To: +")) {
+		} else if (line.matches("^To: .+$")) {
 			to = line.substring(4, line.length()).trim();
 		} else if (line.matches("^Message-ID: .+$")) {
 			messageId = line.substring(12, line.length()).trim();
@@ -119,7 +119,7 @@ public class MailDetails {
 	}
 
 	public static MailDetails getParsedMail(String messageBody) {
-		System.out.println(messageBody);
+		//System.out.println(messageBody);
 		MailDetails mailDet = new MailDetails();
 		mailDet.process(messageBody);
 		return mailDet;

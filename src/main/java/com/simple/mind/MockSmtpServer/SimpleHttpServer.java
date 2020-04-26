@@ -31,6 +31,8 @@ public class SimpleHttpServer {
 		sm.setContext("/toggol", WebController::StartStopServer);
 		sm.setContext("/status", WebController::ServerStatus);
 		sm.setContext("/messages", MailListController::getAllMails);
+		sm.setContext("/delete", MailListController::deleteMail);
+		sm.setContext("/read", MailListController::readMail);
 		sm.start();
 	}
 }

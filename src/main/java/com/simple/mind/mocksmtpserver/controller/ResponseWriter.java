@@ -15,7 +15,6 @@ public class ResponseWriter {
 	}
 
 	public static void WriteResponse(HttpExchange exchange, Object obj) throws IOException {
-		System.out.println("callled");
 		exchange.getResponseHeaders().set("content-type", "application/json");
 		String towrite = "";
 		try {
