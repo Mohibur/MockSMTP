@@ -1,4 +1,4 @@
-package com.simple.mind.MockSmtpServer;
+package com.simple.mind.mocksmtpserver;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
