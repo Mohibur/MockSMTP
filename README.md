@@ -61,3 +61,6 @@ curl "http://localhost:8500/delete"
 
 
 ```
+
+# Missing Options
+Attachment handling
