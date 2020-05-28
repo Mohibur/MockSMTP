@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,9 +66,9 @@ public class MailDetails {
 			} else {
 				mPart = d;
 			}
-			SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss Z");
+			SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 			try {
-				date = formatter.parse(mPart);
+				date = formatter.parse(mPart.trim());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
